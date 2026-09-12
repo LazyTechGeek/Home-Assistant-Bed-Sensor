@@ -10,6 +10,7 @@ substitutions:
   ota_password: "YOUR_OTA_PASSWORD"
   ap_ssid: "YOUR_AP_SSID"
   ap_password: "YOUR_AP_PASSWORD"
+  bed_sensor_pin: "YOUR_BED_SENSOR_PIN"
 
 esphome:
   name: ${name}
