@@ -72,7 +72,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: ${friendly_name]"
+    name: ${friendly_name}
     id: bed_occupancy
     device_class: occupancy
 
