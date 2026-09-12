@@ -68,7 +68,7 @@ number:
 binary_sensor:
   - platform: gpio
     pin:
-      number: D3
+      number: ${bed_sensor_pin}
       inverted: true
       mode:
         input: true
