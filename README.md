@@ -37,15 +37,15 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: $[YOUR_AP_SSID]
+    ssid: ${ap_ssid}
     password: ${ap_password}
 
 captive_portal:
 
 number:
   - platform: template
-    name: "${friendly_name} Occupied Delay"
-    id: bed_occupied_delay
+    name: "Occupied Delay"
+    id: occupied_delay
     min_value: 0
     max_value: 30
     step: 1
@@ -55,8 +55,8 @@ number:
     unit_of_measurement: "s"
 
   - platform: template
-    name: "Bed Vacant Delay"
-    id: bed_vacant_delay
+    name: "Vacant Delay"
+    id: vacant_delay
     min_value: 0
     max_value: 30
     step: 1
