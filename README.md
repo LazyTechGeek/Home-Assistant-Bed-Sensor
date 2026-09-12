@@ -3,8 +3,8 @@ Home Assistant Bed Sensor
 ```
 substitutions:
 
-  name: bed-occupancy
-  friendly_name: Bed Occupancy
+  name: bed-sensor
+  friendly_name: Bed Sensor
 
   api_encryption_key: "YOUR_API_ENCRYPTION_KEY"
   ota_password: "YOUR_OTA_PASSWORD"
@@ -72,8 +72,8 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: ${friendly_name}
-    id: bed_occupancy
+    name: "Occupancy"
+    id: occupancy
     device_class: occupancy
 
     filters:
@@ -86,14 +86,14 @@ binary_sensor:
 switch:
   - platform: template
     name: "Armed"
-    id: bed_sensor_armed
+    id: armed
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_ON    # Remembers last state; defaults to OFF
 
 
   - platform: template
     name: "Nagging Mode"
-    id: bed_nagging_mode
+    id: mode
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
 ```
