@@ -43,7 +43,7 @@ captive_portal:
 
 number:
   - platform: template
-    name: "Bed Occupied Delay"
+    name: "${friendly_name} Occupied Delay"
     id: bed_occupied_delay
     min_value: 0
     max_value: 30
@@ -72,7 +72,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Bed Occupancy"
+    name: ${friendly_name]"
     id: bed_occupancy
     device_class: occupancy
 
@@ -85,14 +85,14 @@ binary_sensor:
 
 switch:
   - platform: template
-    name: "Bed Sensor Armed"
+    name: "${friendly_name} Armed"
     id: bed_sensor_armed
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_ON    # Remembers last state; defaults to OFF
 
 
   - platform: template
-    name: "Bed Nagging Mode"
+    name: "${friendly_name} Nagging Mode"
     id: bed_nagging_mode
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
