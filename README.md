@@ -85,14 +85,14 @@ binary_sensor:
 
 switch:
   - platform: template
-    name: "${friendly_name} Enabled"
+    name: "Enabled"
     id: bed_sensor_enabled
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_ON    # Remembers last state; defaults to OFF
 
 
   - platform: template
-    name: "${friendly_name} Nagging Mode"
+    name: "Nagging Mode"
     id: bed_nagging_mode
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
