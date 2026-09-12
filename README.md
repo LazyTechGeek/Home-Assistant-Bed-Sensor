@@ -85,8 +85,8 @@ binary_sensor:
 
 switch:
   - platform: template
-    name: "${friendly_name} Armed"
-    id: bed_sensor_armed
+    name: "${friendly_name} Enabled"
+    id: bed_sensor_enabled
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_ON    # Remembers last state; defaults to OFF
 
