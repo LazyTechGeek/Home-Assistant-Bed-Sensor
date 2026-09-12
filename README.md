@@ -6,7 +6,7 @@ substitutions:
   name: bed-occupancy
   friendly_name: Bed Occupancy
 
-  api_encryption_key: "YOUR_API_ENCRYPTION_KEY" # not set
+  api_encryption_key: "YOUR_API_ENCRYPTION_KEY"
   ota_password: "YOUR_OTA_PASSWORD"
   ap_ssid: "YOUR_AP_SSID"
   ap_password: "YOUR_AP_PASSWORD"
@@ -14,6 +14,7 @@ substitutions:
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
+  name_add_mac_suffix: true
 
 esp8266:
   board: d1_mini
@@ -37,7 +38,6 @@ wifi:
   ap:
     ssid: $[YOUR_AP_SSID]
     password: ${ap_password}
-
 
 captive_portal:
 
@@ -64,7 +64,6 @@ number:
     restore_value: true
     unit_of_measurement: "s"
 
-
 binary_sensor:
   - platform: gpio
     pin:
@@ -83,4 +82,18 @@ binary_sensor:
 
       - delayed_off: !lambda |-
           return id(bed_vacant_delay).state * 1000;
+
+switch:
+  - platform: template
+    name: "Bed Sensor Armed"
+    id: bed_sensor_armed
+    optimistic: true                    # Assumes the switch changed state successfully
+    restore_mode: RESTORE_DEFAULT_ON    # Remembers last state; defaults to OFF
+
+
+  - platform: template
+    name: "Bed Nagging Mode"
+    id: bed_nagging_mode
+    optimistic: true                    # Assumes the switch changed state successfully
+    restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
 ```
