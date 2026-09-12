@@ -36,7 +36,8 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: $[YOUR_AP_SSID]
-    password: $[]ap_password
+    password: ${ap_password}
+
 
 captive_portal:
 
