@@ -79,10 +79,10 @@ binary_sensor:
 
     filters:
       - delayed_on: !lambda |-
-          return id(bed_occupied_delay).state * 1000;
+          return id(occupied_delay).state * 1000;
 
       - delayed_off: !lambda |-
-          return id(bed_vacant_delay).state * 1000;
+          return id(vacant_delay).state * 1000;
 
 switch:
   - platform: template
