@@ -15,7 +15,6 @@ substitutions:
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
-  name_add_mac_suffix: true
 
 esp8266:
   board: d1_mini
