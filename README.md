@@ -99,3 +99,93 @@ switch:
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
 ```
+
+
+## Light Automation
+```
+alias: Bed Sensor Automation - Lights
+description: ''
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.bedroom_bed_sensor_occupancy
+    from:
+      - 'off'
+    id: '1'
+    to:
+      - 'on'
+  - trigger: state
+    entity_id:
+      - binary_sensor.bedroom_bed_sensor_occupancy
+    from:
+      - 'on'
+    id: '2'
+    to:
+      - 'off'
+conditions:
+  - condition: switch.is_on
+    target:
+      entity_id: switch.bedroom_bed_sensor_armed
+    options:
+      behavior: any
+      for: '00:00:00'
+actions:
+  - choose:
+      - conditions:
+          - condition: time
+            after: '20:00:00'
+            before: '07:00:00'
+            weekday:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+              - sat
+              - sun
+          - condition: trigger
+            id:
+              - '1'
+        sequence:
+          - action: light.turn_off
+            metadata: {}
+            target:
+              entity_id: light.sonoff_100062a5bc
+            data: {}
+          - action: switch.turn_off
+            metadata: {}
+            target:
+              entity_id:
+                - switch.sonoff_hall
+                - switch.sonoff_10006bce68
+            data: {}
+      - conditions:
+          - condition: time
+            after: '20:00:00'
+            before: '07:00:00'
+            weekday:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+              - sat
+              - sun
+          - condition: trigger
+            id:
+              - '2'
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            target:
+              entity_id: light.sonoff_100062a5bc
+            data: {}
+          - action: switch.turn_on
+            metadata: {}
+            target:
+              entity_id:
+                - switch.sonoff_hall
+                - switch.sonoff_10006bce68
+            data: {}
+mode: single
+```
