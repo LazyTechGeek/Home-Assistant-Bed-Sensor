@@ -11,6 +11,8 @@ substitutions:
   ap_ssid: "YOUR_AP_SSID"
   ap_password: "YOUR_AP_PASSWORD"
   bed_sensor_pin: "YOUR_BED_SENSOR_PIN"
+  occupied_delay_initial: 1
+  vacant_delay_initial: 3
 
 esphome:
   name: ${name}
@@ -48,7 +50,7 @@ number:
     min_value: 0
     max_value: 30
     step: 1
-    initial_value: 1
+    initial_value: ${occupied_delay_initial}
     optimistic: true
     restore_value: true
     unit_of_measurement: "s"
@@ -59,7 +61,7 @@ number:
     min_value: 0
     max_value: 30
     step: 1
-    initial_value: 3
+    initial_value: ${vacant_delay_initial}
     optimistic: true
     restore_value: true
     unit_of_measurement: "s"
