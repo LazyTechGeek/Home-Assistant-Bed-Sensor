@@ -406,3 +406,129 @@ actions:
             data:
               message: '{{ nag_message }}'
 ```
+
+### Nag with comments
+```
+alias: random
+description: ''
+
+triggers:
+  # Trigger 1:
+  # Runs when the bed occupancy sensor changes from OFF to ON.
+  # This means someone has just got into / activated the bed sensor.
+  - trigger: state
+    entity_id:
+      - binary_sensor.bedroom_bed_sensor_occupancy
+    from:
+      - 'off'
+    to:
+      - 'on'
+    id: '1'
+
+  # Trigger 2:
+  # Runs every 20 minutes.
+  # This is used to repeat the nagging message while the bed is still occupied.  
+  - trigger: time_pattern
+    minutes: /20
+    id: '2'
+
+conditions:
+  # Only continue if the bed sensor is armed.
+  - condition: switch.is_on
+    target:
+      entity_id: switch.bedroom_bed_sensor_armed
+    options:
+      behavior: any
+      for: '00:00:00'
+
+  # Only continue if Nagging Mode is enabled.  
+  - condition: switch.is_on
+    target:
+      entity_id: switch.bedroom_bed_occupancy_nagging_mode
+    options:
+      behavior: any
+      for: '00:00:00'
+
+  # Only run the automation between 08:00 and 12:00.  
+  - condition: time
+    after: '08:00:00'
+    before: '12:00:00'
+
+actions:
+  # Create 3 lists of possible phrases.
+  # One item will later be picked randomly from each list.
+  - variables:
+      opening:
+        - Hey Dave.
+        - Oi Dave.
+        - Dave.
+      middle:
+        - Why are you still in bed?
+        - Get out of bed.
+        - What are you doing in bed?
+      ending:
+        - You lazy bastard.
+        - You lazy git.
+        - You fat bastard.
+
+  # Build the final nagging message by randomly selecting
+  # 1 phrase from each of the 3 lists above.  
+  - variables:
+      nag_message: '{{ opening | random }} {{ middle | random }} {{ ending | random }}'
+
+  # Perform different actions depending on which trigger started the automation.
+  - choose:
+    
+      # If Trigger 1 fired, the bed has just become occupied.    
+      - conditions:
+          - condition: trigger
+            id:
+              - '1'
+        sequence:
+          # Announce the random nagging message using an Assist satellite.
+          - action: assist_satellite.announce
+            metadata: {}
+            target:
+              device_id: 9fa1b08781a24be9724b0254739a4af0
+            data:
+              message: '{{ nag_message }}'
+              preannounce: true
+            enabled: true
+
+          # Send the same random message as a Home Assistant notification.          
+          - action: notify.notify
+            data:
+              message: '{{ nag_message }}'
+
+          # Send the same random message to the Alexa device.          
+          - action: notify.alexa_media_dave_s_echo_spot
+            metadata: {}
+            data:
+              message: '{{ nag_message }}'
+
+      # If Trigger 2 fired, this is the repeating 20-minute check.      
+      - conditions:
+          - condition: trigger
+            id:
+              - '2'
+
+          # Only send the repeat message if the bed is still occupied.
+          - condition: occupancy.is_detected
+            target:
+              entity_id: binary_sensor.bedroom_bed_sensor_occupancy
+            options:
+              behavior: any
+              for: '00:00:00'
+
+        sequence:
+          # Send the random message as a Home Assistant notification.        
+          - action: notify.notify
+            data:
+              message: '{{ nag_message }}'
+
+          # Send the same random message to the Alexa device.          
+          - action: notify.alexa_media_dave_s_echo_spot
+            metadata: {}
+            data:
+              message: '{{ nag_message }}'
+```
