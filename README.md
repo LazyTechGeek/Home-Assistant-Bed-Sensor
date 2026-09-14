@@ -472,7 +472,7 @@ actions:
         - Oi Dave.
         - Dave.
         - Oh, you think you can pull a fast one on me?
-        - Oh for crying out loud
+        - Oh for crying out loud.
         
       question:
         - Why are you in bed?
