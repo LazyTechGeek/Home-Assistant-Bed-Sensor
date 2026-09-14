@@ -442,21 +442,15 @@ triggers:
     id: '2'
 
 conditions:
-  # Only continue if the bed sensor is armed.
+  # Only continue if the bed sensor is armed and Nagging Mode is enabled.
   - condition: switch.is_on
     target:
-      entity_id: switch.YOUR_ARMED_SWITCH
+      entity_id:
+        - switch.YOUR_ARMED_SWITCH
+        - switch.YOUR_NAGGING_MODE_SWITCH
     options:
-      behavior: any
-      for: '00:00:00'
-
-  # Only continue if Nagging Mode is enabled.  
-  - condition: switch.is_on
-    target:
-      entity_id: switch.YOUR_NAGGING_MODE_SWITCH
-    options:
-      behavior: any
-      for: '00:00:00'
+      behavior: all
+      for: "00:00:00"
 
   # Only run the automation between 08:00 and 12:00.  
   - condition: time
