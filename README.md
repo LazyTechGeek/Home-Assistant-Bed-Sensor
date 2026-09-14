@@ -100,6 +100,32 @@ switch:
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
 ```
 
+## to be replaced
+```
+To be replaced
+
+zigbee2mqtt/Button 02_Bed
+YOUR_MQTT_TOPIC
+
+payload: double
+payload: YOUR_ARMED_PAYLOAD
+
+payload: long
+payload: YOUR_NAGGING_PAYLOAD
+
+switch.bedroom_bed_sensor_armed
+switch.YOUR_ARMED_SWITCH
+
+
+switch.bedroom_bed_occupancy_nagging_mode
+switch.YOUR_NAGGING_MODE_SWITCH
+
+notify.alexa_media_dave_s_echo_spot
+notify.alexa_media_YOUR_ALEXA_DEVICE
+
+assist_satellite.home_assistant_voice_09c74b_assist_satellite
+assist_satellite.YOUR_HOME_ASSISTANT_VOICE
+```
 
 ## Light Automation - Details added
 ```
