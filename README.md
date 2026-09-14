@@ -552,6 +552,16 @@ actions:
               for: '00:00:00'
 
         sequence:
+          # Announce the random nagging message using an Assist satellite.
+          - action: assist_satellite.announce
+            metadata: {}
+            target:
+              entity_id: assist_satellite.YOUR_ASSIST_SATELLITE
+            data:
+              message: '{{ nag_message }}'
+              preannounce: true
+            enabled: true
+
           # Send the random message as a Home Assistant notification.        
           - action: notify.notify
             data:
