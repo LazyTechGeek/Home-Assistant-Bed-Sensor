@@ -428,20 +428,20 @@ mode: single
 # BEFORE USING THIS AUTOMATION
 # Find and replace the following placeholder values in the automation below:
 #
-# YOUR_MQTT_TOPIC                         - MQTT topic published by your button
-# YOUR_ARMED_PAYLOAD                      - Button payload used to toggle Armed
-# YOUR_NAGGING_PAYLOAD                    - Button payload used to toggle Nagging Mode
-# switch.YOUR_ARMED_SWITCH                - Bed Sensor Armed switch entity
-# switch.YOUR_NAGGING_MODE_SWITCH         - Bed Sensor Nagging Mode switch entity
-# notify.alexa_media_YOUR_ALEXA_DEVICE    - Alexa Media Player notification service
-# assist_satellite.YOUR_HOME_ASSISTANT_VOICE - Home Assistant Voice satellite entity
+# YOUR_MQTT_TOPIC                            - MQTT topic published by your button
+# YOUR_ARMED_PAYLOAD                         - Button payload used to toggle Armed
+# YOUR_NAGGING_PAYLOAD                       - Button payload used to toggle Nagging Mode
+# switch.YOUR_ARMED_SWITCH                   - Bed Sensor Armed switch entity
+# switch.YOUR_NAGGING_MODE_SWITCH            - Bed Sensor Nagging Mode switch entity
+# notify.alexa_media_YOUR_ALEXA_DEVICE       - Alexa Media Player notification service
+# assist_satellite.YOUR_HOME_ASSISTANT_VOICE - Home Assistant Voice entity
 
 
 alias: Bed Sensor - Armed & Nagging
 description: ''
 triggers:
 
-# Trigger 1 - Toggle Bed Sensor Armed
+  # Trigger 1 - Toggle Bed Sensor Armed
   - trigger: mqtt
     options:
       topic: YOUR_MQTT_TOPIC
