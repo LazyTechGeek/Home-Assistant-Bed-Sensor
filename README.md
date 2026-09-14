@@ -445,6 +445,7 @@ triggers:
   - trigger: mqtt
     options:
       topic: YOUR_MQTT_TOPIC
+      value_template: '{{ value_json.action }}'
       payload: YOUR_ARMED_PAYLOAD
     id: '1'
 
@@ -452,6 +453,7 @@ triggers:
   - trigger: mqtt
     options:
       topic: YOUR_MQTT_TOPIC
+      value_template: '{{ value_json.action }}'
       payload: YOUR_NAGGING_PAYLOAD
     id: '2'
 conditions: []
