@@ -276,3 +276,149 @@ actions:
 mode: single
 
 ```
+
+### Toggle switches to be templated clearer
+```
+alias: Bed Sensor - Armed & Nagging
+description: ''
+triggers:
+  - trigger: mqtt
+    options:
+      topic: YOUR_MQTT_TOPIC
+      payload: YOUR_ARMED_PAYLOAD
+    id: '1'
+  - trigger: mqtt
+    options:
+      topic: YOUR_MQTT_TOPIC
+      payload: YOUR_NAGGING_PAYLOAD
+    id: '2'
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - '1'
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: switch.is_on
+                    target:
+                      entity_id: switch.YOUR_ARMED_SWITCH
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_off
+                    metadata: {}
+                    target:
+                      entity_id: switch.YOUR_ARMED_SWITCH
+                    data: {}
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Disarming Bed Sensor
+                  - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+                    metadata: {}
+                    data:
+                      message: Disarming Bed Sensor
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: assist_satellite.YOUR_HOME_ASSISTANT_VOICE
+                    data:
+                      message: Disarming Bed Sensor
+                      preannounce: true
+              - conditions:
+                  - condition: switch.is_off
+                    target:
+                      entity_id: switch.YOUR_ARMED_SWITCH
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_on
+                    metadata: {}
+                    target:
+                      entity_id: switch.YOUR_ARMED_SWITCH
+                    data: {}
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Arming Bed Sensor
+                  - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+                    metadata: {}
+                    data:
+                      message: Arming Bed Sensor
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: assist_satellite.YOUR_HOME_ASSISTANT_VOICE
+                    data:
+                      message: Arming Bed Sensor
+                      preannounce: true
+      - conditions:
+          - condition: trigger
+            id:
+              - '2'
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: switch.is_on
+                    target:
+                      entity_id: switch.YOUR_NAGGING_MODE_SWITCH
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_off
+                    metadata: {}
+                    data: {}
+                    target:
+                      entity_id: switch.YOUR_NAGGING_MODE_SWITCH
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Turning off Nagging Mode
+                  - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+                    metadata: {}
+                    data:
+                      message: Turning off Nagging Mode
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: assist_satellite.YOUR_HOME_ASSISTANT_VOICE
+                    data:
+                      message: Turning off Nagging Mode
+                      preannounce: true
+              - conditions:
+                  - condition: switch.is_off
+                    target:
+                      entity_id: switch.YOUR_NAGGING_MODE_SWITCH
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_on
+                    metadata: {}
+                    data: {}
+                    target:
+                      entity_id: switch.YOUR_NAGGING_MODE_SWITCH
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Turning on Nagging Mode
+                  - action: notify.alexa_media_YOUR_ALEXA_DEVICE
+                    metadata: {}
+                    data:
+                      message: Turning on Nagging Mode
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: assist_satellite.YOUR_HOME_ASSISTANT_VOICE
+                    data:
+                      message: Turning on Nagging Mode
+                      preannounce: true
+mode: single
+```
+
