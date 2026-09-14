@@ -481,12 +481,6 @@ actions:
         - You lazy slob.
         - You embarrassment.
         - You pathetic human.
-
-  - What are you doing in bed?
-  - Why are you in bed?
-  - Seriously, back in bed?
-  - Is this really necessary?
-
   
   # Build the final nagging message by randomly selecting
   # 1 phrase from each of the 3 lists above.  
