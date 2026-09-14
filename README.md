@@ -442,7 +442,7 @@ triggers:
     id: '2'
 
 conditions:
-  # Only continue if the bed sensor is armed and Nagging Mode is enabled.
+  # Only continue if the bed sensor is armed and nagging mode is enabled.
   - condition: switch.is_on
     target:
       entity_id:
