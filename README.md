@@ -409,6 +409,15 @@ actions:
 
 ### Nag with comments
 ```
+# BEFORE USING THIS AUTOMATION
+# Find and replace the following placeholder values in the automation below:
+#
+# switch.YOUR_ARMED_SWITCH                   - Bed Sensor Armed switch entity
+# switch.YOUR_NAGGING_MODE_SWITCH            - Bed Sensor Nagging Mode switch entity
+# notify.alexa_media_YOUR_ALEXA_DEVICE       - Alexa Media Player notification service
+# assist_satellite.YOUR_HOME_ASSISTANT_VOICE - Home Assistant Voice entity
+# binary_sensor.YOUR_BED_SENSOR_OCCUPANCY    - Bed Sensor Occupancy binary sensor entity
+
 alias: Bed Sensor - Nagging Routine
 description: ''
 
