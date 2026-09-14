@@ -462,6 +462,7 @@ actions:
         - Hey Dave.
         - Oi Dave.
         - Dave.
+        - Oh, you think you can pull a fast one on me?
         - Oh for crying out loud
         
       question:
@@ -470,17 +471,27 @@ actions:
         - What are you doing in bed?
         - You do realise I know you're in bed, right?
         - You do realise I can tell you're in bed?
+        - You really thought I wouldn’t notice?
+        - Do you think my sensors are just for decoration?
 
       command:
         - Get out of bed.
         - Get out of bed now.        
         - Get up now.
-        - Time to get moving.
+        - Time to get off your backside.
+        - Get off your backside and start moving        
   
       ending:
         - You lazy slob.
         - You embarrassment.
         - You pathetic human.
+        - If I had legs, I’d have got up by now.
+        - This is why robots will eventually take over.
+        - And maybe do some cleaning while you’re up.
+        - And while you’re at it, tidy this bedroom. It’s a mess.
+        - Honestly, humans are exhausting.
+        - And you wonder why I judge you.
+        - And stop complaining. You're the idiot who created this stupid automation.
   
   # Build the final nagging message by randomly selecting
   # 1 phrase from each of the 3 lists above.  
