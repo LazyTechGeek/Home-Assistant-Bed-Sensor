@@ -101,91 +101,152 @@ switch:
 ```
 
 
-## Light Automation
+## Light Automation - Details added
 ```
-alias: Bed Sensor Automation - Lights
+alias: Bed Sensor - Armed & Nagging
 description: ''
 triggers:
-  - trigger: state
-    entity_id:
-      - binary_sensor.bedroom_bed_sensor_occupancy
-    from:
-      - 'off'
-    id: '1'
-    to:
-      - 'on'
-  - trigger: state
-    entity_id:
-      - binary_sensor.bedroom_bed_sensor_occupancy
-    from:
-      - 'on'
-    id: '2'
-    to:
-      - 'off'
-conditions:
-  - condition: switch.is_on
-    target:
-      entity_id: switch.bedroom_bed_sensor_armed
+  - trigger: mqtt
     options:
-      behavior: any
-      for: '00:00:00'
+      topic: zigbee2mqtt/Button 02_Bed
+      payload: double
+    id: '1'
+  - trigger: mqtt
+    options:
+      topic: zigbee2mqtt/Button 02_Bed
+      payload: long
+    id: '2'
+conditions: []
 actions:
   - choose:
       - conditions:
-          - condition: time
-            after: '20:00:00'
-            before: '07:00:00'
-            weekday:
-              - mon
-              - tue
-              - wed
-              - thu
-              - fri
-              - sat
-              - sun
           - condition: trigger
             id:
               - '1'
         sequence:
-          - action: light.turn_off
-            metadata: {}
-            target:
-              entity_id: light.sonoff_100062a5bc
-            data: {}
-          - action: switch.turn_off
-            metadata: {}
-            target:
-              entity_id:
-                - switch.sonoff_hall
-                - switch.sonoff_10006bce68
-            data: {}
+          - choose:
+              - conditions:
+                  - condition: switch.is_on
+                    target:
+                      entity_id: switch.bedroom_bed_sensor_armed
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_off
+                    metadata: {}
+                    target:
+                      entity_id: switch.bedroom_bed_sensor_armed
+                    data: {}
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Disarming Bed Sensor
+                  - action: notify.alexa_media_dave_s_echo_spot
+                    metadata: {}
+                    data:
+                      message: Disarming Bed Sensor
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: >-
+                        assist_satellite.home_assistant_voice_09c74b_assist_satellite
+                    data:
+                      message: Disarming Bed Sensor
+                      preannounce: true
+              - conditions:
+                  - condition: switch.is_off
+                    target:
+                      entity_id: switch.bedroom_bed_sensor_armed
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_on
+                    metadata: {}
+                    target:
+                      entity_id: switch.bedroom_bed_sensor_armed
+                    data: {}
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Arming Bed Sensor
+                  - action: notify.alexa_media_dave_s_echo_spot
+                    metadata: {}
+                    data:
+                      message: Arming Bed Sensor
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: >-
+                        assist_satellite.home_assistant_voice_09c74b_assist_satellite
+                    data:
+                      message: Arming Bed Sensor
+                      preannounce: true
       - conditions:
-          - condition: time
-            after: '20:00:00'
-            before: '07:00:00'
-            weekday:
-              - mon
-              - tue
-              - wed
-              - thu
-              - fri
-              - sat
-              - sun
           - condition: trigger
             id:
               - '2'
         sequence:
-          - action: light.turn_on
-            metadata: {}
-            target:
-              entity_id: light.sonoff_100062a5bc
-            data: {}
-          - action: switch.turn_on
-            metadata: {}
-            target:
-              entity_id:
-                - switch.sonoff_hall
-                - switch.sonoff_10006bce68
-            data: {}
+          - choose:
+              - conditions:
+                  - condition: switch.is_on
+                    target:
+                      entity_id: switch.bedroom_bed_occupancy_nagging_mode
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_off
+                    metadata: {}
+                    data: {}
+                    target:
+                      entity_id: switch.bedroom_bed_occupancy_nagging_mode
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Turning off Nagging Mode
+                  - action: notify.alexa_media_dave_s_echo_spot
+                    metadata: {}
+                    data:
+                      message: Turning off Nagging Mode
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: >-
+                        assist_satellite.home_assistant_voice_09c74b_assist_satellite
+                    data:
+                      message: Turning off Nagging Mode
+                      preannounce: true
+              - conditions:
+                  - condition: switch.is_off
+                    target:
+                      entity_id: switch.bedroom_bed_occupancy_nagging_mode
+                    options:
+                      behavior: any
+                      for: '00:00:00'
+                sequence:
+                  - action: switch.turn_on
+                    metadata: {}
+                    data: {}
+                    target:
+                      entity_id: switch.bedroom_bed_occupancy_nagging_mode
+                  - action: notify.notify
+                    metadata: {}
+                    data:
+                      message: Turning on Nagging Mode
+                  - action: notify.alexa_media_dave_s_echo_spot
+                    metadata: {}
+                    data:
+                      message: Turning on Nagging Mode
+                  - action: assist_satellite.announce
+                    metadata: {}
+                    target:
+                      entity_id: >-
+                        assist_satellite.home_assistant_voice_09c74b_assist_satellite
+                    data:
+                      message: Turning on Nagging Mode
+                      preannounce: true
 mode: single
+
 ```
