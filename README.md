@@ -409,7 +409,7 @@ actions:
 
 ### Nag with comments
 ```
-alias: random
+alias: Bed Sensor - Nagging Routine
 description: ''
 
 triggers:
@@ -418,7 +418,7 @@ triggers:
   # This means someone has just got into / activated the bed sensor.
   - trigger: state
     entity_id:
-      - binary_sensor.bedroom_bed_sensor_occupancy
+      - binary_sensor.YOUR_BED_SENSOR_OCCUPANCY
     from:
       - 'off'
     to:
@@ -436,7 +436,7 @@ conditions:
   # Only continue if the bed sensor is armed.
   - condition: switch.is_on
     target:
-      entity_id: switch.bedroom_bed_sensor_armed
+      entity_id: switch.YOUR_ARMED_SWITCH
     options:
       behavior: any
       for: '00:00:00'
@@ -444,7 +444,7 @@ conditions:
   # Only continue if Nagging Mode is enabled.  
   - condition: switch.is_on
     target:
-      entity_id: switch.bedroom_bed_occupancy_nagging_mode
+      entity_id: switch.YOUR_NAGGING_MODE_SWITCH
     options:
       behavior: any
       for: '00:00:00'
@@ -462,19 +462,36 @@ actions:
         - Hey Dave.
         - Oi Dave.
         - Dave.
-      middle:
-        - Why are you still in bed?
-        - Get out of bed.
+        - Oh for crying out loud
+        
+      question:
+        - Why are you in bed?
+        - Don't you have something better to be doing?
         - What are you doing in bed?
-      ending:
-        - You lazy bastard.
-        - You lazy git.
-        - You fat bastard.
+        - You do realise I know you're in bed, right?
+        - You do realise I can tell you're in bed?
 
+      command:
+        - Get out of bed.
+        - Get out of bed now.        
+        - Get up now.
+        - Time to get moving.
+  
+      ending:
+        - You lazy slob.
+        - You embarrassment.
+        - You pathetic human.
+
+  - What are you doing in bed?
+  - Why are you in bed?
+  - Seriously, back in bed?
+  - Is this really necessary?
+
+  
   # Build the final nagging message by randomly selecting
   # 1 phrase from each of the 3 lists above.  
   - variables:
-      nag_message: '{{ opening | random }} {{ middle | random }} {{ ending | random }}'
+      nag_message: '{{ opening | random }} {{ question | random }} {{ command | random }} {{ ending | random }}'
 
   # Perform different actions depending on which trigger started the automation.
   - choose:
@@ -489,7 +506,7 @@ actions:
           - action: assist_satellite.announce
             metadata: {}
             target:
-              device_id: 9fa1b08781a24be9724b0254739a4af0
+              entity_id: assist_satellite.YOUR_ASSIST_SATELLITE
             data:
               message: '{{ nag_message }}'
               preannounce: true
@@ -501,7 +518,7 @@ actions:
               message: '{{ nag_message }}'
 
           # Send the same random message to the Alexa device.          
-          - action: notify.alexa_media_dave_s_echo_spot
+          - action: notify.alexa_media_YOUR_ALEXA_DEVICE
             metadata: {}
             data:
               message: '{{ nag_message }}'
@@ -515,7 +532,7 @@ actions:
           # Only send the repeat message if the bed is still occupied.
           - condition: occupancy.is_detected
             target:
-              entity_id: binary_sensor.bedroom_bed_sensor_occupancy
+              entity_id: binary_sensor.YOUR_BED_SENSOR_OCCUPANCY
             options:
               behavior: any
               for: '00:00:00'
@@ -527,7 +544,7 @@ actions:
               message: '{{ nag_message }}'
 
           # Send the same random message to the Alexa device.          
-          - action: notify.alexa_media_dave_s_echo_spot
+          - action: notify.alexa_media_YOUR_ALEXA_DEVICE
             metadata: {}
             data:
               message: '{{ nag_message }}'
