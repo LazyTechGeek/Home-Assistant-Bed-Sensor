@@ -108,6 +108,7 @@ switch:
 ```
 
 ## AUTOMATION - Bed Sensor - Armed & Nagging
+This automation lets you toggle the Bed Sensor Armed state and Nagging Mode on or off using an optional physical button.
 ```
 # BEFORE USING THIS AUTOMATION
 # Find and replace the following placeholder values in the automation below:
@@ -298,7 +299,8 @@ actions:
 mode: single
 ```
 
-### Bed Sensor - Nagging Mode
+## Bed Sensor - Nagging Mode
+This automation sends a random nagging message every 20 minutes if the bed is occupied between 08:00 and 12:00, and also nags immediately if you get back into bed during that time.
 ```
 # BEFORE USING THIS AUTOMATION
 # Find and replace the following placeholder values in the automation below:
