@@ -107,6 +107,7 @@ switch:
 ```
 
 ## AUTOMATION - Bed Sensor - Night Lights
+This automation turns your selected lights ON when you get out of bed and turns them OFF when you get back into bed. Some lighting devices may appear in Home Assistant as switches, so the example includes actions for both light and switch entities.
 ```
 alias: Bed Sensor - Night Lights
 description: Turns selected lights OFF when the bed becomes occupied and turns them back ON when the bed becomes vacant
