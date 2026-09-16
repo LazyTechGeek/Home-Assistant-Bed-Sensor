@@ -3,8 +3,7 @@
 In this video, I'll show you how to build a bed occupancy sensor that works with Home Assistant. We'll set up a D1 Mini using ESPHome, install pressure mats under the mattress, create automations to control your lights, add an optional bedside button, and even create a Nagging Mode to make sure you actually get out of bed in the morning.
 
 ## Watch the video here:
-▶️ [RF in Home Assistant](https://youtu.be/f-uLKhieFPU)
-
+▶️ [How to Make You Bed Smart with Home Assistant (Step-By-Step)](https://youtu.be/f-uLKhieFPU)
 
 ## Flash the ESP8266 with ESPHome
 ```
