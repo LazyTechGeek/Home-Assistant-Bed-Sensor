@@ -107,6 +107,101 @@ switch:
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
 ```
 
+## AUTOMATION - Bed Sensor - Night Lights
+```
+alias: Bed Sensor - Night Lights
+description: Turns selected lights OFF when the bed becomes occupied and turns them back ON when the bed becomes vacant
+
+triggers:
+  # Trigger 1: Bed becomes occupied
+  # Replace this with your Bed Sensor Occupancy entity
+  - trigger: state
+    entity_id:
+      - binary_sensor.YOUR_BED_SENSOR_OCCUPANCY
+    from:
+      - 'off'
+    to:
+      - 'on'
+    id: '1'
+
+  # Trigger 2: Bed becomes vacant
+  # Replace this with your Bed Sensor Occupancy entity  
+  - trigger: state
+    entity_id:
+      - binary_sensor.YOUR_BED_SENSOR_OCCUPANCY
+    id: '2'
+    from:
+      - 'on'
+    to:
+      - 'off'
+
+conditions:
+  # Only run the automation when the Bed Sensor is Armed
+  # Replace these IDs with your Bed Sensor Armed switch
+  - condition: switch.is_on
+    target:
+      entity_id: switch.YOUR_ARMED_SWITCH
+    options:
+      behavior: any
+      for: '00:00:00'
+  
+  # Only run between 8 PM and 7 AM
+  # Change these times to suit your requirements  
+  - condition: time
+    after: '20:00:00'
+    before: '07:00:00'
+
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - '1'
+        sequence:
+          # Replace with the light(s) you want to turn OFF
+          - action: light.turn_off
+            metadata: {}
+            target:
+              entity_id: switch.YOUR_LIGHT
+            data: {}
+
+          # Replace with the switch(es) you want to turn OFF
+          # Delete this action if you only need to control lights          
+          - action: switch.turn_off
+            metadata: {}
+            target:
+              entity_id:
+                - switch.YOUR_SWITCH
+                - switch.YOUR_OTHER_SWITCH
+            data: {}
+
+      # Trigger 2: Bed becomes vacant
+      # Turn the required lights/switches ON      
+      - conditions:
+          - condition: trigger
+            id:
+              - '2'
+        sequence:
+          # Replace with the light(s) you want to turn ON     
+          - action: light.turn_on
+            metadata: {}
+            target:
+              entity_id: switch.YOUR_LIGHT
+            data: {}
+            
+          # Replace with the switch(es) you want to turn ON
+          # Delete this action if you only need to control lights            
+          - action: switch.turn_on
+            metadata: {}
+            target:
+              entity_id:
+                - switch.YOUR_SWITCH
+                - switch.YOUR_OTHER_SWITCH
+            data: {}
+
+mode: single
+```
+
 ## AUTOMATION - Bed Sensor - Armed & Nagging
 This automation lets you toggle the Bed Sensor Armed state and Nagging Mode on or off using an optional physical button.
 ```
