@@ -1,5 +1,12 @@
-Home Assistant Bed Sensor
+# Home Assistant Bed Sensor
 
+In this video, I'll show you how to build a bed occupancy sensor that works with Home Assistant. We'll set up a D1 Mini using ESPHome, install pressure mats under the mattress, create automations to control your lights, add an optional bedside button, and even create a Nagging Mode to make sure you actually get out of bed in the morning.
+
+## Watch the video here:
+▶️ [RF in Home Assistant](https://youtu.be/f-uLKhieFPU)
+
+
+## Flash the ESP8266 with ESPHome
 ```
 substitutions:
 
@@ -98,33 +105,6 @@ switch:
     id: mode
     optimistic: true                    # Assumes the switch changed state successfully
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
-```
-
-## to be replaced
-```
-To be replaced
-
-zigbee2mqtt/Button 02_Bed
-YOUR_MQTT_TOPIC
-
-payload: double
-payload: YOUR_ARMED_PAYLOAD
-
-payload: long
-payload: YOUR_NAGGING_PAYLOAD
-
-switch.bedroom_bed_sensor_armed
-switch.YOUR_ARMED_SWITCH
-
-
-switch.bedroom_bed_occupancy_nagging_mode
-switch.YOUR_NAGGING_MODE_SWITCH
-
-notify.alexa_media_dave_s_echo_spot
-notify.alexa_media_YOUR_ALEXA_DEVICE
-
-assist_satellite.home_assistant_voice_09c74b_assist_satellite
-assist_satellite.YOUR_HOME_ASSISTANT_VOICE
 ```
 
 ## AUTOMATION - Bed Sensor - Armed & Nagging
@@ -318,96 +298,7 @@ actions:
 mode: single
 ```
 
-### Nagging Automation
-```
-alias: random
-description: ''
-triggers:
-  - trigger: state
-    entity_id:
-      - binary_sensor.bedroom_bed_sensor_occupancy
-    from:
-      - 'off'
-    to:
-      - 'on'
-    id: '1'
-  - trigger: time_pattern
-    minutes: /20
-    id: '2'
-conditions:
-  - condition: switch.is_on
-    target:
-      entity_id: switch.bedroom_bed_sensor_armed
-    options:
-      behavior: any
-      for: '00:00:00'
-  - condition: switch.is_on
-    target:
-      entity_id: switch.bedroom_bed_occupancy_nagging_mode
-    options:
-      behavior: any
-      for: '00:00:00'
-  - condition: time
-    after: '08:00:00'
-    before: '12:00:00'
-actions:
-  - variables:
-      opening:
-        - Hey Dave.
-        - Oi Dave.
-        - Dave.
-      middle:
-        - Why are you still in bed?
-        - Get out of bed.
-        - What are you doing in bed?
-      ending:
-        - You lazy bastard.
-        - You lazy git.
-        - You fat bastard.
-  - variables:
-      nag_message: '{{ opening | random }} {{ middle | random }} {{ ending | random }}'
-  - choose:
-      - conditions:
-          - condition: trigger
-            id:
-              - '1'
-        sequence:
-          - action: assist_satellite.announce
-            metadata: {}
-            target:
-              device_id: 9fa1b08781a24be9724b0254739a4af0
-            data:
-              message: '{{ nag_message }}'
-              preannounce: true
-            enabled: true
-          - action: notify.notify
-            data:
-              message: '{{ nag_message }}'
-          - action: notify.alexa_media_dave_s_echo_spot
-            metadata: {}
-            data:
-              message: '{{ nag_message }}'
-      - conditions:
-          - condition: trigger
-            id:
-              - '2'
-          - condition: occupancy.is_detected
-            target:
-              entity_id: binary_sensor.bedroom_bed_sensor_occupancy
-            options:
-              behavior: any
-              for: '00:00:00'
-        sequence:
-          - action: notify.notify
-            data:
-              message: '{{ nag_message }}'
-          - action: notify.alexa_media_dave_s_echo_spot
-            metadata: {}
-            data:
-              message: '{{ nag_message }}'
-```
-
-### Nag with comments
+### Bed Sensor - Nagging Mode
 ```
 # BEFORE USING THIS AUTOMATION
 # Find and replace the following placeholder values in the automation below:
