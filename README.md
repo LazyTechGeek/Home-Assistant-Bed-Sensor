@@ -202,7 +202,7 @@ actions:
 mode: single
 ```
 
-## AUTOMATION - Bed Sensor - Armed & Naggingg Switches (Enable / Disable)
+## AUTOMATION - Bed Sensor - Armed & Nagging Switches (Enable / Disable)
 This automation lets you toggle the Bed Sensor Armed state and Nagging Mode on or off using an optional physical button.
 ```
 # BEFORE USING THIS AUTOMATION
