@@ -106,7 +106,7 @@ switch:
     restore_mode: RESTORE_DEFAULT_OFF   # Remembers last state; defaults to OFF
 ```
 
-## AUTOMATION - Bed Sensor - Night Lights
+## AUTOMATION - Bed Sensor - Night Lights (Night Routine)
 This automation turns your selected lights ON when you get out of bed and turns them OFF when you get back into bed. Some lighting devices may appear in Home Assistant as switches, so the example includes actions for both light and switch entities.
 ```
 alias: Bed Sensor - Night Lights
@@ -202,7 +202,7 @@ actions:
 mode: single
 ```
 
-## AUTOMATION - Bed Sensor - Armed & Nagging
+## AUTOMATION - Bed Sensor - Armed & Naggingg Switches (Enable / Disable)
 This automation lets you toggle the Bed Sensor Armed state and Nagging Mode on or off using an optional physical button.
 ```
 # BEFORE USING THIS AUTOMATION
@@ -394,7 +394,7 @@ actions:
 mode: single
 ```
 
-## Bed Sensor - Nagging Mode
+## Bed Sensor - Nagging Mode (Day Routine)
 This automation sends a random nagging message every 20 minutes if the bed is occupied between 08:00 and 12:00, and also nags immediately if you get back into bed during that time.
 ```
 # BEFORE USING THIS AUTOMATION
